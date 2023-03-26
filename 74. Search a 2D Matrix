@@ -13,3 +13,38 @@ public:
     return false;
     }
 };
+
+// 2nd approach
+
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& nums, int target) {
+    //     (index)2% (col size)4 gives coloum no.=1
+    //    (index) 4/ (col size)4 gives row no. =1
+    
+    // matrix[i * col_size + j] if matrix is 1d (i = row, j = col )
+
+    int row_size = nums.size();
+    int col_size = nums[0].size();
+
+    int low = 0;
+    int high = row_size*col_size-1;// total elements index starts from 0
+    if(col_size == 1 && row_size == 1){
+        return nums[0][0] == target;
+    }
+    while(low <= high){
+        int mid = (high + low)/2;
+        int mid_val = nums[mid/col_size][mid%col_size];// mid/col_size gives (row index) and mid%col_size gives (col index)
+
+        if(mid_val == target)return true;
+
+        if(mid_val < target){
+            low = mid + 1;
+        }else{
+            high = mid -1;
+        }
+    }
+    return false;
+    }
+};
+
